@@ -45,9 +45,11 @@ const Auth = () => {
         console.log(data);
       } else {
         console.error(`HTTP Error: ${response.status} - ${response.statusText}`);
+        toast.error("An error occurred!");
       }
     } catch (error) {
       console.error("An error occurred:", error);
+      toast.error("An error occurred!");
     }
   }
 
