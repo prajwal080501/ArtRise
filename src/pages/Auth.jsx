@@ -1,57 +1,105 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import AuthImage from "../components/AuthImage";
 import Input from "../components/Input";
+import ClipLoader from "react-spinners/ClipLoader";
 import toast from "react-hot-toast";
-
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 const Auth = () => {
   const [mode, setMode] = useState("login");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false)
   const [password, setPassword] = useState("");
+  const {
+    saveUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleMode = () => {
     setMode((prevMode) => (prevMode === "login" ? "signup" : "login"));
   };
 
-  async function handleSubmit() {
-    const apiUrl = "http://localhost:8000/api/auth";
-    const headers = {
-      "Content-Type": "application/json",
-    };
-
+  const handleRegister = async (e) => {
     try {
-      let endpoint = "";
-      let requestBody = {};
-
-      if (mode === "login") {
-        endpoint = "/login";
-        requestBody = { email, password };
-        toast.success("Logged in successfully!");
-      } else {
-        endpoint = "/signup";
-        requestBody = { username, email, password };
-        toast.success("Signed up successfully!");
-      }
-
-      const response = await fetch(apiUrl + endpoint, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(requestBody),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
-      } else {
-        console.error(`HTTP Error: ${response.status} - ${response.statusText}`);
-        toast.error("An error occurred!");
-      }
+      setLoading(true);
+      e.preventDefault();
+      const response = await fetch(
+        "http://localhost:8000/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            email,
+            password,
+          }),
+        },
+      );
+      
+      response.json().then(data => {
+        console.log(data)
+        if(response.ok){
+          toast.success(data.msg);
+          setLoading(false)
+          setMode("login")
+        } else {
+          toast.error(data.msg)
+          setLoading(false)
+        }
+      })
     } catch (error) {
-      console.error("An error occurred:", error);
-      toast.error("An error occurred!");
+      setLoading(false);
+      toast.error(error.message);
     }
   }
+
+  async function handleLogin(e) {
+    try {
+      setLoading(true);
+      e.preventDefault();
+
+      const response = await fetch(
+        "http://localhost:8000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password
+          }),
+        },
+      );
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.user && data.accessToken) {
+          saveUser(data?.user, data?.accessToken);
+          navigate("/");
+          toast.success(data.msg);
+        } else {
+          // Handle successful login without user data if needed
+        }
+        setLoading(false);
+      } else {
+        // Handle a bad request or other errors
+        toast.error("Invalid login data. Please check your credentials.");
+        setLoading(false);
+      }
+      
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+    }
+  }
+
+
+
+
 
   const buttonText = mode === "login" ? "Login" : "Sign Up";
 
@@ -125,11 +173,14 @@ const Auth = () => {
                 </div>
                 <div>
                   <button
-                    onClick={handleSubmit}
+                    onClick={mode === "login" ? handleLogin : handleRegister}
                     type="button"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                   >
-                    {buttonText} <ArrowRight className="ml-2" size={16} />
+                    {loading ? <ClipLoader 
+                    color="white"
+                     /> : buttonText
+                    } 
                   </button>
                 </div>
               </div>

@@ -1,7 +1,8 @@
 import { ArrowUpRight } from 'lucide-react'
+import PropTypes from 'prop-types'
 
-
-const Card = ({title, imageUrl, artist, tags, price, description}) => {
+const Card = ({data}) => {
+  const {title, imageUrl, artist, tags, price, description} = data;
     return (
         <div className="w-[300px] hover:scale-105 duration-200 ease-linear hover:opacity-90 cursor-pointer h-auto drop-shadow-lg rounded-md border bg-white">
         <img
@@ -38,4 +39,8 @@ const Card = ({title, imageUrl, artist, tags, price, description}) => {
     )
 }
 
+
+Card.propTypes = {
+  data: PropTypes.object.isRequired
+}
 export default Card;

@@ -18,7 +18,7 @@ export const data = [
         description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     {
-        id: 2,
+        id: 3,
         imageUrl: "https://cdn.pixabay.com/photo/2019/02/14/07/28/painting-3995999_1280.jpg",
         title: "Painting",
         artist: "John Doe",
@@ -27,7 +27,7 @@ export const data = [
         description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     {
-        id: 2,
+        id: 4,
         imageUrl: "https://cdn.pixabay.com/photo/2019/02/14/07/28/painting-3995999_1280.jpg",
         title: "Painting",
         artist: "John Doe",
@@ -36,17 +36,7 @@ export const data = [
         description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     {
-        id: 2,
-        imageUrl: "https://cdn.pixabay.com/photo/2019/02/14/07/28/painting-3995999_1280.jpg",
-        title: "Painting",
-        artist: "John Doe",
-        tags: ["painting"],
-
-        price: 150,
-        description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    },
-    {
-        id: 2,
+        id: 5,
         imageUrl: "https://cdn.pixabay.com/photo/2019/02/14/07/28/painting-3995999_1280.jpg",
         title: "Painting",
         artist: "John Doe",
@@ -56,7 +46,7 @@ export const data = [
         description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     {
-        id: 2,
+        id: 6,
         imageUrl: "https://cdn.pixabay.com/photo/2019/02/14/07/28/painting-3995999_1280.jpg",
         title: "Painting",
         artist: "John Doe",
@@ -66,7 +56,17 @@ export const data = [
         description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     },
     {
-        id: 2,
+        id: 7,
+        imageUrl: "https://cdn.pixabay.com/photo/2019/02/14/07/28/painting-3995999_1280.jpg",
+        title: "Painting",
+        artist: "John Doe",
+        tags: ["painting"],
+
+        price: 150,
+        description: "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+        id: 8,
         imageUrl: "https://cdn.pixabay.com/photo/2019/02/14/07/28/painting-3995999_1280.jpg",
         title: "Painting",
         artist: "John Doe",

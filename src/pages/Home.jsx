@@ -5,9 +5,9 @@ const Home = () => {
     return (
         <div className="h-screen">
             <Hero />
-        <Featured />
+            <Featured />
         </div>
-        
+
     )
 }
 

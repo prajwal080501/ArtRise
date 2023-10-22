@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { data } from "../data/data";
 import Card from "./Card"
 
@@ -7,15 +8,12 @@ const ArtContainer = () => {
             {
                 // display first four art pieces
                 data.slice(0, 4).map((art) => (
-                    <Card
-                        key={art.id}
-                        title={art.title}
-                        imageUrl={art.imageUrl}
-                        artist={art.artist}
-                        price={art.price}
-                        tags={art.tags}
-                        description={art.description}
-                    />
+                    <Link key={art.id} to={`/art/${art.id}`}>
+                        <Card
+                            title={art.title}
+                            data = {art}
+                        />
+                    </Link>
                 ))
             }
         </div>

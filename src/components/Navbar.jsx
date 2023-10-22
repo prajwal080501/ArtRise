@@ -1,8 +1,10 @@
 'use client'
 
-import React from 'react'
-import { Menu, X, ChevronDown, ChevronRight, Component } from 'lucide-react'
+import React, { useContext } from 'react'
+import { ChevronRight, Menu, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { UserContext } from '../context/UserContext'
+import { AiOutlineUpload } from 'react-icons/ai'
 
 const menuItems = [
   {
@@ -21,6 +23,8 @@ const menuItems = [
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const {user, getUser} = useContext(UserContext);
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -68,19 +72,29 @@ export function Navbar() {
           <input
             className="flex h-10 w-[250px] rounded-md bg-gray-100 px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             type="text"
-            placeholder="Serach"
+            placeholder="Search"
           ></input>
         </div>
-        <div className="ml-2 mt-2 hidden lg:block">
-          {/* <span className="relative inline-block">
-            <img
-              className="h-10 w-10 rounded-full"
-              src="https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg"
-              alt="Dan_Abromov"
-            />
-            <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-600 ring-2 ring-white"></span>
-          </span> */}
-          <Link to="/auth" className='bg-rose-500 text-white px-4 py-2 rounded-lg'>Login</Link>
+        <div className="ml-2 hidden lg:block">
+          {
+            user ? (
+              <div className="w-full flex justify-end space-x-5">
+                <img src={user.profilePicture} alt="" className="h-10 w-10 rounded-full" />
+                  <Link to={`/profile/${user.username}`} className="text-lg font-bold bg-blue-500 hover:bg-blue-600 duration-200 ease-linear hover:scale-105 text-white p-2 rounded-lg inline-block">
+             
+             {user.username}
+         </Link>
+         <button className="bg-green-600 hover:scale-105 duration-200 px-2 font-bold rounded-lg">
+          <AiOutlineUpload className="text-2xl text-white" />
+         </button>
+              </div>
+            
+            ): (
+              <Link to="/auth" className='bg-rose-500 text-white px-4 py-2 rounded-lg'>Login</Link>
+
+            )
+          }
+      
         </div>
         <div className="ml-2 lg:hidden">
           <Menu onClick={toggleMenu} className="h-6 w-6 cursor-pointer" />
@@ -91,7 +105,7 @@ export function Navbar() {
               <div className="px-5 pb-6 pt-5">
                 <div className="flex items-center justify-between">
                   <div className="inline-flex items-center space-x-2">
-                    
+
                     <span className="font-bold">ArtRise</span>
                   </div>
                   <div className="-mr-2">
@@ -124,14 +138,10 @@ export function Navbar() {
                   </nav>
                 </div>
                 <div className="ml-3 mt-4 flex items-center space-x-2">
-                  <img
-                    className="inline-block h-10 w-10 rounded-full"
-                    src="https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg"
-                    alt="Dan_Abromov"
-                  />
+                <img src={user.profilePicture} alt="" className="h-10 w-10 rounded-full" />
+
                   <span className="flex flex-col">
-                    <span className="text-sm font-medium text-gray-900">Dan Abromov</span>
-                    <span className="text-sm font-medium text-gray-500">@dan_abromov</span>
+                    <span className="text-sm font-medium text-gray-500">@{user.username}</span>
                   </span>
                 </div>
               </div>
@@ -141,4 +151,7 @@ export function Navbar() {
       </div>
     </div>
   )
-}
+                    }
+
+
+export default Navbar;
