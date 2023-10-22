@@ -4,7 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const connectDB = require("./middleware/db");
 const authRoutes = require("./routes/auth")
-
+const userRoutes = require("./routes/user");
 const PORT = process.env.PORT;
 const URL = process.env.URL;
 const app = express();
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
-
+app.use("/api/user", userRoutes);
 
 app.listen(PORT, () => {
     connectDB();
